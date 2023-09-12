@@ -1,0 +1,43 @@
+﻿@page
+@model ZodiacLab.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var imgPath = "";
+    if (ViewBag.Zodiac != "") {
+        imgPath = "images/images/" + ViewBag.Zodiac + ".png";
+    }
+}
+
+<div style="margin-bottom: 1em;">
+<form method="post">
+	<div class="form-group">
+		<label asp-for="Years" class="control-label"></label>
+		<input asp-for="Years" class="form-control" />
+	</div>
+
+	<div class="form-group">
+           <br />
+		<input type="submit" value="Get Zodiac" class="btn btn-primary" />
+		<a asp-action="Index" class="btn btn-success">Clear</a>
+	</div>
+</form>
+</div>
+
+<div>
+
+</div>
+
+@if(ViewBag.Zodiac != "" && ViewBag.isPost) {
+    <div style="width: 100%; display: flex; justify-content: center;">
+    <div style="padding: 1em; border: solid 1px lightgreen; background-color: #D5F5E3; color: darkgreen; display: flex; flex-direction: column; width: fit-content; border-radius: 0.5em;">
+    <p style="width: fit-content; margin: 0;">Your Zodiac is <b>@ViewBag.Zodiac</b></p>
+    <img src="@imgPath"  alt="Sample Image" width="200" />
+    </div>
+    </div>
+
+
+} else if (ViewBag.isPost) {
+    <div style="width: 100%; display: flex; justify-content: center;">
+    <p style="margin: 0; padding: 1em; border: solid 1px lightred; background-color: rgba(255, 99, 71, 0.5); color: darkred; border-radius: 0.5em;">Year must be between 1900 and next year. Please try again.</p>
+    </div>
+}
